@@ -883,7 +883,7 @@ if(BIC.choose == 2){
     xlab(expression(Y[1])) +  ylab(expression(Y[1]))+
     geom_point(data=data.frame(dat),size=3,aes(x=X1,y=X2,color=Predict,shape=Predict))
   cp
-  ggsave(file=paste("./ContorPlot_",seed.no,".eps",sep=""),cp,device=cairo_ps,
+  ggsave(file=paste("./ContorPlot_2var_",seed.no,".eps",sep=""),cp,device=cairo_ps,
          fallback_resolution = 600)
 }
 
@@ -929,15 +929,12 @@ Delta_results <- c(Delt_l_var,Delt_u_var,Delta)
 ##############################
 ### save plots and results ###
 ##############################
-image.filename = paste("./Simulation",".n=",seed.no,".RData",sep='')
-save.image(file = image.filename, version = NULL, safe = TRUE)
-
-outputbic.filename = paste("./BIC",".csv",sep='')
-write.table(t(BIC_results),file=outputbic.filename,sep=",",
-            row.names=paste("simulation",seed.no),col.names=F,append = TRUE)
-output.filename = paste("./simulationOutput",".csv",sep='')
-write.table(t(all_results),file=output.filename,sep=",",
-            row.names=paste("simulation",seed.no),col.names=F,append = TRUE)
+# outputbic.filename = paste("./BIC",".csv",sep='')
+# write.table(t(BIC_results),file=outputbic.filename,sep=",",
+            # row.names=paste("simulation",seed.no),col.names=F,append = TRUE)
+# output.filename = paste("./simulationOutput",".csv",sep='')
+# write.table(t(all_results),file=output.filename,sep=",",
+            # row.names=paste("simulation",seed.no),col.names=F,append = TRUE)
 # if(BIC.choose == 2){
 #   # get ready for credible intervals
 #   outputbic.filename = paste("./GammaCredibleInterval",".csv",sep='')
@@ -976,21 +973,24 @@ p_t <- ggplot()+
   geom_point(data=dataY,size=3,aes(x=Y1,y=Y2,color=True))+
   xlab(expression(Y[1]))+ylab(expression(Y[2]))
 p_t
-ggsave(file=paste("./YPlot_",seed.no,".eps",sep=""),p_t,device=cairo_ps,
+ggsave(file=paste("./YPlot_2var_",seed.no,".eps",sep=""),p_t,device=cairo_ps,
        fallback_resolution = 600)
 ## Pairwise plot with true label
-pp_t<-ggpairs(dataY,upper=list(continuous="points",combo="facethist",
-                               discrete="facetbar",na="na"),aes(colour=True,alpha=0.4),
-              legend=grab_legend(p_t))
-pp_t
-ggsave(file=paste("./YPairwise_",seed.no,".eps",sep=""),pp_t,device=cairo_ps,
-       fallback_resolution = 600)
+# pp_t<-ggpairs(dataY,upper=list(continuous="points",combo="facethist",
+#                                discrete="facetbar",na="na"),aes(colour=True,alpha=0.4),
+#               legend=grab_legend(p_t))
+# pp_t
+# ggsave(file=paste("./YPairwise_",seed.no,".eps",sep=""),pp_t,device=cairo_ps,
+#        fallback_resolution = 600)
 
 ## Pairwise plot wt predicted label
-pp<-ggpairs(dataY,upper=list(continuous="points",combo="facethist",
-            discrete="facetbar",na="na"),
-            aes(colour=Predict,shape=Predict,alpha=0.4),
-            legend=grab_legend(cp))
-pp
-ggsave(file=paste("./PairwisePlot_",seed.no,".eps",sep=""),pp,device=cairo_ps,
-       fallback_resolution = 600)
+# pp<-ggpairs(dataY,upper=list(continuous="points",combo="facethist",
+#             discrete="facetbar",na="na"),
+#             aes(colour=Predict,shape=Predict,alpha=0.4),
+#             legend=grab_legend(cp))
+# pp
+# ggsave(file=paste("./PairwisePlot_",seed.no,".eps",sep=""),pp,device=cairo_ps,
+#        fallback_resolution = 600)
+
+image.filename = paste("./Simulation_2var_seed",seed.no,".RData",sep='')
+save.image(file = image.filename, version = NULL, safe = TRUE)
